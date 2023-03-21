@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ucc.cloudservice.mapper.ClientMapper">
+  <resultMap id="BaseResultMap" type="com.ucc.cloudservice.pojo.Client">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="longitude" jdbcType="REAL" property="longitude" />
+    <result column="latitude" jdbcType="REAL" property="latitude" />
+    <result column="netid" jdbcType="INTEGER" property="netid" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from client
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ucc.cloudservice.pojo.Client" useGeneratedKeys="true" keyProperty="id">
+    insert into client (  longitude, latitude,
+      netid, username, password
+      )
+    values (  #{longitude,jdbcType=REAL}, #{latitude,jdbcType=REAL},
+      #{netid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.ucc.cloudservice.pojo.Client">
+    update client
+    set longitude = #{longitude,jdbcType=REAL},
+      latitude = #{latitude,jdbcType=REAL},
+      netid = #{netid,jdbcType=INTEGER},
+      username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, longitude, latitude, netid, username, password
+    from client
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, longitude, latitude, netid, username, password
+    from client
+  </select>
+
+  <!-- Define the SQL query for selectByUsernameAndPassword -->
+  <select id="selectByUsernameAndPassword" parameterType="map" resultMap="BaseResultMap">
+    SELECT * FROM client
+    WHERE username = #{username} AND password = #{password}
+  </select>
+</mapper>

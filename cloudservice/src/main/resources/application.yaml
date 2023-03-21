@@ -1,0 +1,17 @@
+server:
+  port: 8080
+
+spring:
+  mvc:
+    view:
+      prefix: classpath:/templates/
+      suffix: .html
+
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://${DB_HOST}:3306/manetcloudservice
+    username: root
+    password: 123
+mybatis:
+  type-aliases-package: com.ucc.cloudservice.pojo
+  mapper-locations: classpath:com/ucc/cloudservice/mapper/*.xml

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ucc.cloudservice.mapper.ManetMapper">
+  <resultMap id="BaseResultMap" type="com.ucc.cloudservice.pojo.Manet">
+    <id column="netid" jdbcType="INTEGER" property="netid" />
+    <result column="netstatus" jdbcType="BIT" property="netstatus" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="capacity" jdbcType="INTEGER" property="capacity" />
+    <result column="connect_amount" jdbcType="INTEGER" property="connectAmount" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from manet
+    where netid = #{netid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ucc.cloudservice.pojo.Manet" useGeneratedKeys="true" keyProperty="netid">
+    insert into manet ( netstatus, start_time,
+      capacity, connect_amount)
+    values ( #{netstatus,jdbcType=BIT}, current_timestamp(),
+      #{capacity,jdbcType=INTEGER}, #{connectAmount,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.ucc.cloudservice.pojo.Manet">
+    update manet
+    set netstatus = #{netstatus,jdbcType=BIT},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      capacity = #{capacity,jdbcType=INTEGER},
+      connect_amount = #{connectAmount,jdbcType=INTEGER}
+    where netid = #{netid,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select netid, netstatus, start_time, capacity, connect_amount
+    from manet
+    where netid = #{netid,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select netid, netstatus, start_time, capacity, connect_amount
+    from manet where netstatus = 1
+  </select>
+</mapper>

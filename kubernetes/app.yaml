@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloudservice-server
+spec:
+  replicas: 2  # number of replicas (pods) to run
+  selector:
+    matchLabels:
+      app: cloudservice-server
+  template:
+    metadata:
+      labels:
+        app: cloudservice-server
+    spec:
+      containers:
+      - name: cloudservice-container
+        image: meiqihuangucc/cloudservice-image:1.0  # Docker image to use
+        ports:
+        - containerPort: 8080 # my application listening
+        env:
+        - name: DB_HOST # database ip
+          value: 192.168.88.6
